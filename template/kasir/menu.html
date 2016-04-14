@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="easyResto" ng-controller="kasirController">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="utf-8">
+		<title>{{pageTitle}}</title>
+		<!-- Library -->
+		<link rel="stylesheet" href="libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
+		<!-- Stylesheet -->
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<script src="libs/jquery/jquery/dist/jquery.js"></script>
+		<script src="libs/jquery/datatables/media/js/jquery.dataTables.min.js"></script>
+		<script src="libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
+		
+		<script src="libs/angular.js"></script>
+		<script src="libs/angular-ui-router.js"></script>
+		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
+		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
+		<script src="libs/angular-base64-lib/angular-base64.js"></script>
+		<script src="libs/angular-local-storage-lib/dist/angular-local-storage.js"></script>
+
+		<script src="js/app.js"></script>
+	</head>
+	<body>
+		<!-- Menu -->
+		<div class="wrapper">
+			<!-- Navigation Bar -->
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#">EasyResto</a>
+					</div>
+					<ul class="nav nav-justified">
+						<li><a href="#">Pesanan</a></li>
+						<li><a href="#">Menu</a></li>
+						<li><a href="#">Statistik</a></li>
+						<li><a href="#">Logout</a></li>
+					</ul>
+				</div>
+			</nav> <!-- Navigation Bar Close -->
+			
+			<div class="container-fluid">
+				<div class="row text-center">
+					<h1>Daftar Menu</h1>
+					<hr>
+				</div>
+				<div class="row text-center">
+					<h4>
+						<button type="button" class="btn btn-default" data-type="plus" data-field="quant[1]">
+							<span class="glyphicon glyphicon-plus"></span> Tambah
+						</button>
+					</h4>
+				</div>
+				
+				<div class="table-responsive">
+					<table id="tabelMenu" class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nama</th>
+								<th>Harga</th>
+								<th>Ubah</th>
+								<th>Hapus</th>
+							</tr>
+						</thead>
+						<!-- Iterasi item di menu -->
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Mie Goreng</td>
+								<td>30000</td>
+								<td>
+									<button type="button" class="btn btn-default">
+										<span class="glyphicon glyphicon-edit"></span> Ubah
+									</button>
+								</td>
+								<td>
+									<button type="button" class="btn btn-default">
+										<span class="glyphicon glyphicon-remove"></span> Hapus
+									</button>
+								</td>
+							</tr> <!-- Iterasi Close -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+

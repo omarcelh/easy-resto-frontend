@@ -1,0 +1,40 @@
+@font-face { font-family: Delicious; src: url('delicious-123/Delicious-Roman.otf'); } 
+
+html, body {
+	height: 100%;
+	background-color: #c8c8e6;
+	font-family: "Delicious", Arial, "Lucida Grande", sans-serif; 
+	font-size: 1em;
+}
+
+.wrapper{
+	width: 100%;
+}
+
+.center {
+    text-align: center;
+}
+
+h1, h2 {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1 {
+	font-size: 4em;
+}
+
+h2 {
+	font-size: 3em;
+}
+
+.table-responsive {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+    -webkit-overflow-scrolling: touch;
+}
+

@@ -3,13 +3,16 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="utf-8">
 		<title>{{pageTitle}}</title>
+		
 		<!-- Library -->
 		<link rel="stylesheet" href="libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
+		
 		<!-- Stylesheet -->
 		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/angular-chart.css" />
+		
 		<script src="libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="libs/jquery/jquery/dist/jquery.js"></script>
-		<script src="libs/jquery/datatables/media/js/jquery.dataTables.min.js"></script>
 			
 		<script src="libs/angular.js"></script>
 		<script src="libs/angular-ui-router.js"></script>
@@ -17,14 +20,17 @@
 		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
 		<script src="libs/angular-base64-lib/angular-base64.js"></script>
 		<script src="libs/angular-local-storage-lib/dist/angular-local-storage.js"></script>
-
+		<script src="libs/chart.js"></script>
+		<script src="libs/angular-chart.js"></script>
+		
 		<script src="js/app.js"></script>
-		<script src="js/controllers/loginController.js"></script>
 		<script src="js/controllers/kasirController.js"></script>
-		<script src="js/services/kasirService.js"></script>
+		<script src="js/services/pesananService.js"></script>
+		<script src="js/services/menuService.js"></script>
+		<script src="js/services/statistikService.js"></script>
 	</head>
 	<body data-spy="scroll" data-target=".navbar" data-offset="50">		
-		<!-- Pesanan -->
+		<!-- Kasir -->
 		<div class="wrapper">
 			<!-- Navigation Bar -->
 			<nav class="navbar navbar-default" role="navigation">
@@ -42,8 +48,8 @@
 			</nav> <!-- Navigation Bar Close -->
 			
 			<!-- Types of Pesanan -->
-<!--
 			<div class="container-fluid">
+<!--
 				<div class="row">
 					<div class="col-lg-6 col-lg-offset-3">
 						<h1 class="text-center">Pesanan</h1>
@@ -113,39 +119,27 @@
 										</div>
 									</div>
 									<div class="col-lg-3">
-										<div class="row">
-											<div class="col-lg-6">
-												<p>Total</p>
+										<form class="form-horizontal">
+											<div class="form-group">
+												<label for="totalHarga" class="control-label col-lg-3">Total</label>
+												<p id="totalHarga" class="form-control-static col-lg-9">{{total}}</p>
 											</div>
-											<div class="col-lg-6">
-												<p>{{total}}</p>
+											<div class="form-group">
+												<label for="totalBayar" class="control-label col-lg-3">Jumlah Bayar</label>
+												<div class="col-lg-9">
+													<input id="totalBayar" type="number" class="form-control" ng-model="jumlahBayar" ng-init="jumlahBayar=0">
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-lg-6">
-												<p>Jumlah Bayar</p>
+											<div class="form-group">
+												<div class="col-lg-6 col-lg-offset-3 text-center">
+													<input type="button" class="btn btn-default" ng-disabled="jumlahBayar < total" ng-click="" value="Bayar">
+												</div>
 											</div>
-											<div class="col-lg-6">
-												<input type="number" class="form-control" ng-model="jumlahBayar" ng-init="jumlahBayar=0">
+											<div class="form-group">
+												<label for="kembalian" class="control-label col-lg-3">Kembalian</label>
+												<p id="kembalian" class="form-control-static col-lg-9">{{jumlahBayar - total}}</p>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-lg-6 col-lg-offset-6">
-												<form class="form-inline">
-													<div class="form-group">
-														<input type="button" class="btn btn-default" ng-disabled="jumlahBayar < total" ng-click="" value="Bayar">
-													</div>
-												</form>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-lg-6">
-												<p>Kembalian</p>
-											</div>
-											<div class="col-lg-6">
-												<p>{{jumlahBayar - x.totalHarga}}</p>
-											</div>
-										</div>
+										</form>
 									</div>
 								</div>
 							</div>

@@ -1,19 +1,32 @@
-app.controller('kasirController', function($scope, kasirService) {
+app.controller('kasirController', function($scope, pesananService, menuService, statistikService) {
 	$scope.pesanan = [];
+	$scope.menu = [];
+	$scope.statistik = {
+		labels: null,
+		series: null,
+		data: null
+	};
 	
 	var getPesanan = function(){
-		kasirService.getAllPesanan().then(function(res){
+		pesananService.getAllPesanan().then(function(res){
 			$scope.pesanan = res;
-			console.log($scope.pesanan);
 		});
-	}
+	};
 	getPesanan();
 	
-	$(document).ready(function(){
-		$('#tabelMenu').DataTable({
-			bPaginate: false
+	var getMenu = function(){
+		menuService.getAllMenu().then(function(res){
+			$scope.menu = res;
 		});
-	});
+	};
+	getMenu();
+	
+	$scope.getStatistik = function(jenis, awal, akhir){
+		statistikService.getStatistik(jenis, awal, akhir).then(function(res){			
+			$scope.statistik.data = res.data;
+			$scope.statistik.labels = res.labels;
+		});
+	};
 });
 
 

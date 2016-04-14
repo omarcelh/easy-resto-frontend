@@ -9,7 +9,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     })
     .state('pelayan', {
         url: '/pelayan',
-        templateUrl: '/template/pelayan/home.html',
+        templateUrl: '/template/pelayan/olahPesanan.html',
         controller: 'pelayanController'
     })
     .state('kasir', {

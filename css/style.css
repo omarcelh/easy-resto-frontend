@@ -38,3 +38,6 @@ h2 {
     -webkit-overflow-scrolling: touch;
 }
 
+.bg-white {
+	background-color: white;
+}

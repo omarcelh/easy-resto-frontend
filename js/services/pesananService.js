@@ -1,8 +1,8 @@
-app.factory('kasirService', function($http, $q) {
+app.factory('pesananService', function($http, $q) {
     var factory = {};
     var pesananEndpoint = 'http://localhost:5555/api/v1/pesanan/';
-
-    var getEndpoint = function(pesananId) {
+	
+    var getPesananEndpoint = function(pesananId) {
         return pesananEndpoint + pesananId;
     }
 
@@ -79,7 +79,7 @@ app.factory('kasirService', function($http, $q) {
 
         $http({
             method: 'PATCH',
-            url: getEndpoint(pesananId),
+            url: getPesananEndpoint(pesananId),
             data: req,
             dataType: 'json',
             withCredentials: true,
@@ -102,7 +102,7 @@ app.factory('kasirService', function($http, $q) {
 
         $http({
             method: 'DELETE',
-            url: getEndpoint(pesananId)
+            url: getPesananEndpoint(pesananId)
         }).success(function(data) {
             deferred.resolve(data);
         }).error(function(data) {
@@ -111,7 +111,8 @@ app.factory('kasirService', function($http, $q) {
 
         return deferred.promise;
     }
-
+    
     return factory;
 });
+
 

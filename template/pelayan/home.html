@@ -64,29 +64,52 @@
 				
 				<div class="row text-center">
 					<h4>
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#tambahPesanan">
+						<button type="button" class="btn btn-default" ng-click="showPesanan()">
 							<span class="glyphicon glyphicon-plus"></span> Tambah
 						</button>
 					</h4>
 				</div>
 				
-				<!-- Modal -->
-				<div class="modal fade" id="tambahPesanan" role="form">
-					<div class="modal-dialog modal-lg">
-						<div class="modal hide">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Modal Header</h4>
+				<div class="row">
+					<div class="col-lg-12">
+						<form class="form-horizontal" ng-show="isShown">
+							<div class="form-group text-center">
+								<label for="jenisPesanan" class="control-label col-lg-2">Jenis</label>
+								<div class="col-lg-10">
+									<select id="jenisPesanan" class="form-control" ng-model="jenisPesanan">	
+										<option value="makan_di_tempat">Makan di tempat</option>
+										<option value="bawa_pulang">Bawa pulang</option>
+									</select>
+								</div>
 							</div>
-							<div class="modal-body">
-								<p>This is a large modal.</p>
+							
+							<div class="form-group text-center" ng-show="jenisPesanan == 'makan_di_tempat'">
+								<label for="mejaPesanan" class="control-label col-lg-2">Meja</label>
+								<div class="col-lg-10">
+									<select id="mejaPesanan" class="form-control">
+										<option value="x.id" ng-repeat="x in meja">{{x.id}}</option>
+									</select>
+								</div>
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							
+							<div class="form-group text-center">
+								<label class="control-label">Menu</label>
 							</div>
-						</div>
+							<div class="form-group" ng-repeat="x in menu">
+								<label for="menu-{{$index}}" class="control-label col-lg-2">{{x.nama}}</label>
+								<div class="col-lg-10">
+									<input id="menu-{{$index}}" type="number" class="form-control">
+								</div>
+							</div>
+							
+							<div class="form-group text-center">
+								<button class="btn btn-default">
+									<span class="glyphicon glyphicon-plus"></span> Olah Pesanan
+								</button>
+							</div>
+						</form>
 					</div>
-				</div> <!-- Modal Close -->
+				</div>
 				
 				<div class="panel-group" id="listPesanan">
 					<!-- Iterasi per pesanan -->
@@ -136,6 +159,15 @@
 												</tbody>
 											</table>
 										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-lg-12">
+										<button class="btn btn-default" ng-click="">
+											Edit
+										</button>
 									</div>
 								</div>
 							</div>

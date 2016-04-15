@@ -9,12 +9,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     })
     .state('pelayan', {
         url: '/pelayan',
-        templateUrl: '/template/pelayan/olahPesanan.html',
+        templateUrl: '/template/pelayan/home.html',
         controller: 'pelayanController'
     })
     .state('kasir', {
         url: '/kasir',
-        templateUrl: '/template/kasir/home.html',
+        templateUrl: '/template/kasir/menu.html',
         controller: 'kasirController'
     })
     .state('koki', {

@@ -1,74 +1,46 @@
-<!DOCTYPE HTML>
-<html lang="en" ng-app="easyResto" ng-controller="kasirController">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="utf-8">
-		<title>{{pageTitle}}</title>
-		<!-- Library -->
-		<link rel="stylesheet" href="libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
-		<!-- Stylesheet -->
-		<link rel="stylesheet" href="css/style.css" type="text/css" />
-		<script src="libs/jquery/jquery/dist/jquery.js"></script>
-		<script src="libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
-		
-		<script src="libs/angular.js"></script>
-		<script src="libs/angular-ui-router.js"></script>
-		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
-		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
-		<script src="libs/angular-base64-lib/angular-base64.js"></script>
-		<script src="libs/angular-local-storage-lib/dist/angular-local-storage.js"></script>
-		<script src="libs/chart.js"></script>
-		<script src="libs/angular-chart.js"></script>
-		
-		<script src="js/app.js"></script>
-		<script src="js/controllers/kasirController.js"></script>
-		<script src="js/services/kasirService.js"></script>
-	</head>
-	<body>
-		<!-- Navigation Bar -->
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">EasyResto</a>
-				</div>
-				<ul class="nav nav-justified">
-					<li><a href="#">Pesanan</a></li>
-					<li><a href="#">Menu</a></li>
-					<li><a href="#">Statistik</a></li>
-					<li><a href="#">Logout</a></li>
-				</ul>
-			</div>
-		</nav> <!-- Navigation Bar Close -->
-		
-		<!-- Statistik -->
-		<div class="container">
-			<form class="form-inline" role="form">
-				<div class="form-group col-lg-3">
-					<label for="jenisStatistik" class="control-label">Jenis Statistik</label>
-					<select class="form-control" id="jenisStatistik" ng-model="jenis">	
-						<option value="pemesanan">Pemesanan</option>
-						<option value="item">Item</option>
-						<option value="hari">Hari</option>
-					</select>
-				</div>
-				<div class="form-group col-lg-3">
-					<label for="tanggalAwal" class="control-label">Sejak</label>
-					<input id="tanggalAwal" ng-model="awal" type="date" class="btn btn-default" required>
-				</div>
-				<div class="form-group col-lg-3">
-					<label for="tanggalAkhir" class="control-label">Hingga</label>
-					<input id="tanggalAkhir" ng-model="akhir"  type="date" class="btn btn-default" required>
-				</div>
-				<div class="form-group col-lg-3">
-					<button type="submit" ng-click="getStatistik(jenis, awal, akhir)" class="btn btn-default">Tampilkan</button>
-				</div>
-			</form>
-			
-			
-			<!-- Chart Statistik -->
-			<canvas id="chartStatistik" class="chart chart-bar" 
-				chart-data="statistik.data" 
-				chart-labels="statistik.labels">
-			</canvas>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">EasyResto</a>
 		</div>
-	</body>
-</html>
+		<ul class="nav nav-justified">
+			<li><a ui-sref="kasir">Pesanan</a></li>
+			<li><a ui-sref="kasirMenu">Menu</a></li>
+			<li><a ui-sref="kasirStatistik">Statistik</a></li>
+			<li><a ui-sref="login">Logout</a></li>
+		</ul>
+	</div>
+</nav> <!-- Navigation Bar Close -->
+
+<!-- Statistik -->
+<div class="container">
+	<form class="form-inline" role="form">
+		<div class="form-group col-lg-3">
+			<label for="jenisStatistik" class="control-label">Jenis Statistik</label>
+			<select class="form-control" id="jenisStatistik" ng-model="jenis">	
+				<option value="pemesanan">Pemesanan</option>
+				<option value="item">Item</option>
+				<option value="hari">Hari</option>
+			</select>
+		</div>
+		<div class="form-group col-lg-3">
+			<label for="tanggalAwal" class="control-label">Sejak</label>
+			<input id="tanggalAwal" ng-model="awal" type="date" class="btn btn-default" required>
+		</div>
+		<div class="form-group col-lg-3">
+			<label for="tanggalAkhir" class="control-label">Hingga</label>
+			<input id="tanggalAkhir" ng-model="akhir"  type="date" class="btn btn-default" required>
+		</div>
+		<div class="form-group col-lg-3">
+			<button type="submit" ng-click="getStatistik(jenis, awal, akhir)" class="btn btn-default">Tampilkan</button>
+		</div>
+	</form>
+	
+	
+	<!-- Chart Statistik -->
+	<canvas id="chartStatistik" class="chart chart-bar" 
+		chart-data="statistik.data" 
+		chart-labels="statistik.labels">
+	</canvas>
+</div>

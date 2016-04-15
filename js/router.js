@@ -14,6 +14,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     })
     .state('kasir', {
         url: '/kasir',
+        templateUrl: '/template/kasir/home.html',
+        controller: 'kasirController'
+    })
+    .state('kasirStatistik', {
+        url: '/kasir/statistik',
+        templateUrl: '/template/kasir/statistik.html',
+        controller: 'kasirController'
+    })
+    .state('kasirMenu', {
+        url: '/kasir/menu',
         templateUrl: '/template/kasir/menu.html',
         controller: 'kasirController'
     })

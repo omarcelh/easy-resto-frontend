@@ -17,4 +17,3 @@ app.controller('kokiController', function($scope, pesananService) {
 	}
 });
 
-

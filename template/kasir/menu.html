@@ -1,114 +1,85 @@
-<!DOCTYPE HTML>
-<html lang="en" ng-app="easyResto" ng-controller="kasirController">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="utf-8">
-		<title>{{pageTitle}}</title>
-		<!-- Library -->
-		<link rel="stylesheet" href="libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
-		<!-- Stylesheet -->
-		<link rel="stylesheet" href="css/style.css" type="text/css" />
-		<script src="libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
-		<script src="libs/jquery/jquery/dist/jquery.js"></script>
+<!-- Menu -->
+<div class="wrapper">
+	<!-- Navigation Bar -->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">EasyResto</a>
+			</div>
+			<ul class="nav nav-justified">
+				<li><a ui-sref="kasir">Pesanan</a></li>
+				<li><a ui-sref="kasirMenu">Menu</a></li>
+				<li><a ui-sref="kasirStatistik">Statistik</a></li>
+				<li><a ui-sref="login">Logout</a></li>
+			</ul>
+		</div>
+	</nav> <!-- Navigation Bar Close -->
+	
+	<div class="container-fluid">
+		<div class="row text-center">
+			<h1>Daftar Menu</h1>
+			<hr>
+		</div>
+		<div class="row text-center">
+			<h4>
+				<button type="button" class="btn btn-default" ng-click="showMenu()">
+					<span class="glyphicon glyphicon-plus"></span> Tambah Menu
+				</button>
+			</h4>
+		</div>
 		
-		<script src="libs/angular.js"></script>
-		<script src="libs/angular-ui-router.js"></script>
-		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
-		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
-		<script src="libs/angular-base64-lib/angular-base64.js"></script>
-		<script src="libs/angular-local-storage-lib/dist/angular-local-storage.js"></script>
-
-		<script src="js/app.js"></script>
-		<script src="js/controllers/kasirController.js"></script>
-		<script src="js/services/pesananService.js"></script>
-		<script src="js/services/menuService.js"></script>
-		<script src="js/services/statistikService.js"></script>
-	</head>
-	<body>
-		<!-- Menu -->
-		<div class="wrapper">
-			<!-- Navigation Bar -->
-			<nav class="navbar navbar-default" role="navigation">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="#">EasyResto</a>
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 text-center">
+				<form class="form-inline" ng-show="isShown">
+					<div class="form-group">
+						<label for="nama" class="control-label">Nama</label>
+						<input id="nama" type="text" class="form-control" ng-model="singleMenu.nama">
 					</div>
-					<ul class="nav nav-justified">
-						<li><a href="#">Pesanan</a></li>
-						<li><a href="#">Menu</a></li>
-						<li><a href="#">Statistik</a></li>
-						<li><a href="#">Logout</a></li>
-					</ul>
-				</div>
-			</nav> <!-- Navigation Bar Close -->
-			
-			<div class="container-fluid">
-				<div class="row text-center">
-					<h1>Daftar Menu</h1>
-					<hr>
-				</div>
-				<div class="row text-center">
-					<h4>
-						<button type="button" class="btn btn-default" ng-click="showMenu()">
-							<span class="glyphicon glyphicon-plus"></span> Tambah Menu
+					<div class="form-group">
+						<label for="harga" class="control-label">Harga</label>
+						<input id="harga" type="number" class="form-control" ng-model="singleMenu.harga">
+					</div>
+					<div class="form-group">
+						<button class="btn btn-default" ng-click="addMenu(singleMenu)">
+							Tambah
 						</button>
-					</h4>
-				</div>
-				
-				<div class="row">
-					<div class="col-lg-6 col-lg-offset-3 text-center">
-						<form class="form-inline" ng-show="isShown">
-							<div class="form-group">
-								<label for="nama" class="control-label">Nama</label>
-								<input id="nama" type="text" class="form-control" ng-model="singleMenu.nama">
-							</div>
-							<div class="form-group">
-								<label for="harga" class="control-label">Harga</label>
-								<input id="harga" type="number" class="form-control" ng-model="singleMenu.harga">
-							</div>
-							<div class="form-group">
-								<button class="btn btn-default" ng-click="addMenu(singleMenu)">
-									Tambah
-								</button>
-							</div>
-						</form>
 					</div>
-				</div>
-				
-				<br>
-				
-				<div class="table-responsive">
-					<table class="table table-hover bg-white">
-						<thead>
-							<tr>
-								<th>No.</th>
-								<th>Nama</th>
-								<th>Harga</th>
-								<th>Ubah</th>
-								<th>Hapus</th>
-							</tr>
-						</thead>
-						<!-- Iterasi item di menu -->
-						<tbody>
-							<tr ng-repeat="x in menu">
-								<td>{{$index + 1}}</td>
-								<td>{{x.nama}}</td>
-								<td>{{x.harga}}</td>
-								<td>
-									<button type="button" class="btn btn-default">
-										<span class="glyphicon glyphicon-edit"></span> Ubah
-									</button>
-								</td>
-								<td>
-									<button type="button" class="btn btn-default" ng-click="deleteMenu(x.id)">
-										<span class="glyphicon glyphicon-remove"></span> Hapus
-									</button>
-								</td>
-							</tr> <!-- Iterasi Close -->
-						</tbody>
-					</table>
-				</div>
+				</form>
 			</div>
 		</div>
-	</body>
-</html>
-
+		
+		<br>
+		
+		<div class="table-responsive">
+			<table class="table table-hover bg-white">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Nama</th>
+						<th>Harga</th>
+						<th>Ubah</th>
+						<th>Hapus</th>
+					</tr>
+				</thead>
+				<!-- Iterasi item di menu -->
+				<tbody>
+					<tr ng-repeat="x in menu">
+						<td>{{$index + 1}}</td>
+						<td>{{x.nama}}</td>
+						<td>{{x.harga}}</td>
+						<td>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-edit"></span> Ubah
+							</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-default" ng-click="deleteMenu(x.id)">
+								<span class="glyphicon glyphicon-remove"></span> Hapus
+							</button>
+						</td>
+					</tr> <!-- Iterasi Close -->
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

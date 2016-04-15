@@ -1,181 +1,150 @@
-<!DOCTYPE HTML>
-<html lang="en" ng-app="easyResto" ng-controller="pelayanController">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="utf-8">
-		<title>{{pageTitle}}</title>
-		<!-- Library -->
-		<link rel="stylesheet" href="libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
-		<!-- Stylesheet -->
-		<link rel="stylesheet" href="css/style.css" type="text/css" />
-		
-		<script src="libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
-		<script src="libs/jquery/jquery/dist/jquery.js"></script>
-		
-		<script src="libs/angular.js"></script>
-		<script src="libs/angular-ui-router.js"></script>
-		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
-		<script src="libs/angular-basicauth-lib/angular-basicauth.js"></script>
-		<script src="libs/angular-base64-lib/angular-base64.js"></script>
-		<script src="libs/angular-local-storage-lib/dist/angular-local-storage.js"></script>
-
-		<script src="js/app.js"></script>
-
-		<script src="js/services/pesananService.js"></script>
-		
-		<script src="js/controllers/pelayanController.js"></script>
-
-	</head>
-	<body>
-		<!-- Pelayan -->
-		<div class="wrapper">
-			<!-- Navigation Bar -->
-			<nav class="navbar navbar-default" role="navigation">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="#">EasyResto</a>
-					</div>
-					<ul class="nav nav-justified">
-						<li><a href="#">Logout</a></li>
-					</ul>
-				</div>
-			</nav> <!-- Navigation Bar Close -->
-			
-			<!-- Types of Pesanan -->
-			<div class="container-fluid">
+<!-- Pelayan -->
+<div class="wrapper">
+	<!-- Navigation Bar -->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">EasyResto</a>
+			</div>
+			<ul class="nav nav-justified">
+				<li><a ui-sref="login">Logout</a></li>
+			</ul>
+		</div>
+	</nav> <!-- Navigation Bar Close -->
+	
+	<!-- Types of Pesanan -->
+	<div class="container-fluid">
 <!--
-				<div class="row">
-					<div class="col-lg-6 col-lg-offset-3">
-						<h1 class="text-center">Pesanan</h1>
-					</div>
-				</div>
-				<nav class="navbar navbar-default text-center">
-					<div class="container-fluid">
-						<ul class="nav nav-justified">
-							<li>
-								<a href="#"><h2>Active</h2></a>
-							</li>
-							<li>
-								<a href="#"><h2>Past</h2></a>
-							</li>
-						</ul>
-					</div>
-				</nav>
--->
-				
-				<div class="row text-center">
-					<h4>
-						<button type="button" class="btn btn-default" ng-click="showPesanan()">
-							<span class="glyphicon glyphicon-plus"></span> Tambah
-						</button>
-					</h4>
-				</div>
-				
-				<div class="row">
-					<div class="col-lg-12">
-						<form class="form-horizontal" ng-show="isShown">
-							<div class="form-group text-center">
-								<label for="jenisPesanan" class="control-label col-lg-2">Jenis</label>
-								<div class="col-lg-10">
-									<select id="jenisPesanan" class="form-control" ng-model="jenisPesanan">	
-										<option value="makan_di_tempat">Makan di tempat</option>
-										<option value="bawa_pulang">Bawa pulang</option>
-									</select>
-								</div>
-							</div>
-							
-							<div class="form-group text-center" ng-show="jenisPesanan == 'makan_di_tempat'">
-								<label for="mejaPesanan" class="control-label col-lg-2">Meja</label>
-								<div class="col-lg-10">
-									<select id="mejaPesanan" class="form-control">
-										<option value="x.id" ng-repeat="x in meja">{{x.id}}</option>
-									</select>
-								</div>
-							</div>
-							
-							<div class="form-group text-center">
-								<label class="control-label">Menu</label>
-							</div>
-							<div class="form-group" ng-repeat="x in menu">
-								<label for="menu-{{$index}}" class="control-label col-lg-2">{{x.nama}}</label>
-								<div class="col-lg-10">
-									<input id="menu-{{$index}}" type="number" class="form-control">
-								</div>
-							</div>
-							
-							<div class="form-group text-center">
-								<button class="btn btn-default">
-									<span class="glyphicon glyphicon-plus"></span> Olah Pesanan
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-				
-				<div class="panel-group" id="listPesanan">
-					<!-- Iterasi per pesanan -->
-					<div class="panel panel-default" ng-repeat="x in pesanan" ng-init="parentIndex = $index; total = x.totalHarga">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#listPesanan" data-target="#panelPesanan-{{$index}}">
-									<div class="row">
-										<div class="col-lg-1">
-											{{$index+1}}
-										</div>
-										<div class="col-lg-4">
-											Pesanan-{{x.id}}
-										</div>
-										<div class="col-lg-4">
-											Meja-{{x.meja[0].id}}
-										</div>
-										<div class="col-lg-3">
-											{{x.tanggalBuat | limitTo: 19}}
-										</div>
-									</div>
-								</a>
-							</h4>
-						</div>
-						<div id="panelPesanan-{{$index}}" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-lg-12">
-										<div class="table-responsive">
-											<table class="table table-hover">
-												<thead>
-													<tr>
-														<th>No.</th>
-														<th>Item</th>
-														<th>Quantity</th>
-														<th>Subtotal</th>
-													</tr>
-												</thead>
-												<!-- Iterasi item di pesanan -->
-												<tbody>
-													<tr ng-repeat="y in pesanan[parentIndex].items">
-														<td>{{$index + 1}}</td>
-														<td>{{y.nama}}</td>
-														<td>{{y.ItemPesanan.count}}</td>
-														<td>{{y.harga * y.ItemPesanan.count}}</td>
-													</tr> <!-- Iterasi Close -->
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="panel-footer">
-								<div class="row">
-									<div class="col-lg-12">
-										<button class="btn btn-default" ng-click="">
-											Edit
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> <!-- Iterasi Close -->
-				</div>
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3">
+				<h1 class="text-center">Pesanan</h1>
 			</div>
 		</div>
-	</body>
-</html>
-
+		<nav class="navbar navbar-default text-center">
+			<div class="container-fluid">
+				<ul class="nav nav-justified">
+					<li>
+						<a href="#"><h2>Active</h2></a>
+					</li>
+					<li>
+						<a href="#"><h2>Past</h2></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+-->
+		
+		<div class="row text-center">
+			<h4>
+				<button type="button" class="btn btn-default" ng-click="showPesanan()">
+					<span class="glyphicon glyphicon-plus"></span> Tambah
+				</button>
+			</h4>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<form class="form-horizontal" ng-show="isShown">
+					<div class="form-group text-center">
+						<label for="jenisPesanan" class="control-label col-lg-2">Jenis</label>
+						<div class="col-lg-10">
+							<select id="jenisPesanan" class="form-control" ng-model="jenisPesanan">	
+								<option value="makan_di_tempat">Makan di tempat</option>
+								<option value="bawa_pulang">Bawa pulang</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group text-center" ng-show="jenisPesanan == 'makan_di_tempat'">
+						<label for="mejaPesanan" class="control-label col-lg-2">Meja</label>
+						<div class="col-lg-10">
+							<select id="mejaPesanan" class="form-control">
+								<option value="x.id" ng-repeat="x in meja">{{x.id}}</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group text-center">
+						<label class="control-label">Menu</label>
+					</div>
+					<div class="form-group" ng-repeat="x in menu">
+						<label for="menu-{{$index}}" class="control-label col-lg-2">{{x.nama}}</label>
+						<div class="col-lg-10">
+							<input id="menu-{{$index}}" type="number" class="form-control">
+						</div>
+					</div>
+					
+					<div class="form-group text-center">
+						<button class="btn btn-default">
+							<span class="glyphicon glyphicon-plus"></span> Olah Pesanan
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="panel-group" id="listPesanan">
+			<!-- Iterasi per pesanan -->
+			<div class="panel panel-default" ng-repeat="x in pesanan" ng-init="parentIndex = $index; total = x.totalHarga">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#listPesanan" data-target="#panelPesanan-{{$index}}">
+							<div class="row">
+								<div class="col-lg-1">
+									{{$index+1}}
+								</div>
+								<div class="col-lg-4">
+									Pesanan-{{x.id}}
+								</div>
+								<div class="col-lg-4">
+									Meja-{{x.meja[0].id}}
+								</div>
+								<div class="col-lg-3">
+									{{x.tanggalBuat | limitTo: 19}}
+								</div>
+							</div>
+						</a>
+					</h4>
+				</div>
+				<div id="panelPesanan-{{$index}}" class="panel-collapse collapse">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="table-responsive">
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>No.</th>
+												<th>Item</th>
+												<th>Quantity</th>
+												<th>Subtotal</th>
+											</tr>
+										</thead>
+										<!-- Iterasi item di pesanan -->
+										<tbody>
+											<tr ng-repeat="y in pesanan[parentIndex].items">
+												<td>{{$index + 1}}</td>
+												<td>{{y.nama}}</td>
+												<td>{{y.ItemPesanan.count}}</td>
+												<td>{{y.harga * y.ItemPesanan.count}}</td>
+											</tr> <!-- Iterasi Close -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+							<div class="col-lg-12">
+								<button class="btn btn-default" ng-click="">
+									Edit
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- Iterasi Close -->
+		</div>
+	</div>
+</div>

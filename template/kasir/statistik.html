@@ -16,31 +16,37 @@
 <!-- Statistik -->
 <div class="container">
 	<form class="form-inline" role="form">
-		<div class="form-group col-lg-3">
+		<div class="col-sm-1"></div>
+		<div class="form-group col-sm-3">
 			<label for="jenisStatistik" class="control-label">Jenis Statistik</label>
-			<select class="form-control" id="jenisStatistik" ng-model="jenis">	
-				<option value="pemesanan">Pemesanan</option>
-				<option value="item">Item</option>
-				<option value="hari">Hari</option>
+			<select class="form-control" id="jenisStatistik"
+				ng-change="filterStatistikBy(statistikOptions.filter.selected)"
+				ng-model="statistikOptions.filter.selected"
+				ng-options="option.value as option.name for option in statistikOptions.filter.availableOptions">
 			</select>
 		</div>
-		<div class="form-group col-lg-3">
+		<div class="form-group col-sm-3">
 			<label for="tanggalAwal" class="control-label">Sejak</label>
-			<input id="tanggalAwal" ng-model="awal" type="date" class="btn btn-default" required>
+			<input id="tanggalAwal" type="date" class="btn btn-default"	required
+				ng-model="statistikOptions.startDate"
+				ng-change="setStartDate(statistikOptions.startDate)"
+			/>
 		</div>
-		<div class="form-group col-lg-3">
+		<div class="form-group col-sm-3">
 			<label for="tanggalAkhir" class="control-label">Hingga</label>
-			<input id="tanggalAkhir" ng-model="akhir"  type="date" class="btn btn-default" required>
-		</div>
-		<div class="form-group col-lg-3">
-			<button type="submit" ng-click="getStatistik(jenis, awal, akhir)" class="btn btn-default">Tampilkan</button>
+			<input id="tanggalAkhir" type="date" class="btn btn-default" required
+				ng-model="statistikOptions.endDate"
+				ng-change="setEndDate(statistikOptions.endDate)"
+			/>
 		</div>
 	</form>
-	
-	
+	<br/>
+
 	<!-- Chart Statistik -->
-	<canvas id="chartStatistik" class="chart chart-bar" 
-		chart-data="statistik.data" 
-		chart-labels="statistik.labels">
-	</canvas>
+	<div class="col-sm-offset-1 col-sm-10 bg-white" style="margin-top: 10px">
+		<canvas id="chartStatistik" class="chart chart-bar"
+			chart-data="statistik.data"
+			chart-labels="statistik.labels">
+		</canvas>
+	</div>
 </div>

@@ -20,7 +20,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     .state('kasirStatistik', {
         url: '/kasir/statistik',
         templateUrl: '/template/kasir/statistik.html',
-        controller: 'kasirController'
+        controller: 'statistikController'
     })
     .state('kasirMenu', {
         url: '/kasir/menu',
@@ -33,4 +33,3 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         controller: 'kokiController'
     })
 });
-

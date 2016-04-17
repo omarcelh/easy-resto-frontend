@@ -1,1 +1,1 @@
-var app = angular.module('easyResto', ['ui.router']);
+var app = angular.module('easyResto', ['ui.router', 'chart.js']);

@@ -14,20 +14,22 @@
 			</ul>
 		</div>
 	</nav> <!-- Navigation Bar Close -->
-	
+
 	<div class="container-fluid">
 		<div class="row text-center">
 			<h1>Daftar Menu</h1>
 			<hr>
 		</div>
 		<div class="row text-center">
-			<h4>
-				<button type="button" class="btn btn-default" ng-click="showMenu()">
-					<span class="glyphicon glyphicon-plus"></span> Tambah Menu
-				</button>
-			</h4>
+			<div class="col-sm-12">
+				<h4>
+					<button type="button" class="btn btn-default btn-block btn-lg" ng-click="showMenu()">
+						<span class="glyphicon glyphicon-plus"></span> Tambah Menu
+					</button>
+				</h4>
+			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-lg-6 col-lg-offset-3 text-center">
 				<form class="form-inline" ng-show="isShown">
@@ -47,17 +49,16 @@
 				</form>
 			</div>
 		</div>
-		
+
 		<br>
-		
+
 		<div class="table-responsive">
-			<table class="table table-hover bg-white">
+			<table class="table table-hover bg-white table-striped">
 				<thead>
 					<tr>
 						<th>No.</th>
 						<th>Nama</th>
 						<th>Harga</th>
-						<th>Ubah</th>
 						<th>Hapus</th>
 					</tr>
 				</thead>
@@ -66,12 +67,7 @@
 					<tr ng-repeat="x in menu">
 						<td>{{$index + 1}}</td>
 						<td>{{x.nama}}</td>
-						<td>{{x.harga}}</td>
-						<td>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-edit"></span> Ubah
-							</button>
-						</td>
+						<td>{{x.harga | currency:'Rp':0}}</td>
 						<td>
 							<button type="button" class="btn btn-default" ng-click="deleteMenu(x.id)">
 								<span class="glyphicon glyphicon-remove"></span> Hapus

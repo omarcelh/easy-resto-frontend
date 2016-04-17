@@ -1,9 +1,9 @@
-@font-face { font-family: Delicious; src: url('delicious-123/Delicious-Roman.otf'); } 
+@font-face { font-family: Delicious; src: url('delicious-123/Delicious-Roman.otf'); }
 
 html, body {
 	height: 100%;
 	background-color: #c8c8e6;
-	font-family: "Delicious", Arial, "Lucida Grande", sans-serif; 
+	font-family: "Delicious", Arial, "Lucida Grande", sans-serif;
 	font-size: 1em;
 }
 
@@ -40,4 +40,27 @@ h2 {
 
 .bg-white {
 	background-color: white;
+}
+
+.panel {
+	margin-bottom: 5px;
+}
+
+.inline {
+	display: inline-block;
+	width: auto;
+}
+
+.btn-fixed-bottom {
+	border-radius: 0;
+	position:fixed;
+	bottom:0;
+}
+
+.mt-50 {
+	margin-top: 50px;
+}
+
+.control-label {
+	margin-top: 5px;
 }

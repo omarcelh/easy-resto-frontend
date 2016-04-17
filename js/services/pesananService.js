@@ -1,32 +1,18 @@
 app.factory('pesananService', function($http, $q) {
     var factory = {};
     var pesananEndpoint = 'http://localhost:5555/api/v1/pesanan/';
-	
+
     var getPesananEndpoint = function(pesananId) {
         return pesananEndpoint + pesananId;
     }
-    
+
     factory.getAllPesanan = function(status) {
         var deferred = $q.defer();
 
         $http({
             method: 'GET',
-            url: pesananEndpoint + '?status=' + status
-        }).success(function(data) {
-            deferred.resolve(data);
-        }).error(function(data) {
-            deferred.reject(data);
-        });
-
-        return deferred.promise;
-    }
-    
-    factory.getAllPesanan = function() {
-        var deferred = $q.defer();
-
-        $http({
-            method: 'GET',
-            url: pesananEndpoint
+            url: pesananEndpoint,
+            params: {status: status}
         }).success(function(data) {
             deferred.resolve(data);
         }).error(function(data) {
@@ -39,14 +25,11 @@ app.factory('pesananService', function($http, $q) {
     factory.addPesanan = function(dat) {
         var deferred = $q.defer();
 
-        var req = {
-        };
-
         //kode_ruangan, kapasitas, status_kondisi
         $http({
             method: 'POST',
             url: pesananEndpoint,
-            data: req,
+            data: dat,
             dataType: 'json'
         }).success(function(data) {
             deferred.resolve(data);
@@ -59,15 +42,11 @@ app.factory('pesananService', function($http, $q) {
 
     factory.editPesanan = function(pesananId, dat) {
         var deferred = $q.defer();
-			
-        var req = {
-			
-        };
 
         $http({
-            method: 'PATCH',
+            method: 'PUT',
             url: getPesananEndpoint(pesananId),
-            data: req,
+            data: dat,
             dataType: 'json'
         }).success(function(data) {
             deferred.resolve(data);
@@ -77,16 +56,16 @@ app.factory('pesananService', function($http, $q) {
 
         return deferred.promise;
     }
-    
+
     factory.updateStatusPesanan = function(pesananId, stat) {
 		var deferred = $q.defer();
 
         var req = {
-			status: stat
+			      status: stat
         };
 
         $http({
-            method: 'PATCH',
+            method: 'PUT',
             url: getPesananEndpoint(pesananId),
             data: req,
             dataType: 'json'
@@ -113,8 +92,6 @@ app.factory('pesananService', function($http, $q) {
 
         return deferred.promise;
     }
-    
+
     return factory;
 });
-
-

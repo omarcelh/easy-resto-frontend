@@ -14,12 +14,12 @@
 			</ul>
 		</div>
 	</nav> <!-- Navigation Bar Close -->
-	
+
 	<!-- Types of Pesanan -->
 	<div class="container-fluid">
 <!--
 		<div class="row">
-			<div class="col-lg-6 col-lg-offset-3">
+			<div class="col-sm-6 col-sm-offset-3">
 				<h1 class="text-center">Pesanan</h1>
 			</div>
 		</div>
@@ -36,35 +36,48 @@
 			</div>
 		</nav>
 -->
-		
-		<div class="panel-group" id="listPesanan">
+	<div class="row">
+		<div class="col-md-12">
+		  <div class="form-group">
+		    <label>Status: </label>
+				<select class="form-control inline"
+					ng-change="sortPesananBy(pesananSorter.selected)"
+					ng-model="pesananSorter.selected"
+					ng-options="option.value as option.name for option in pesananSorter.availableOptions">
+				</select>
+		  </div>
+		</div>
+	</div>
 			<!-- Iterasi per pesanan -->
-			<div class="panel panel-default" ng-repeat="x in pesanan" ng-init="parentIndex = $index; total = x.totalHarga">
+			<div class="panel panel-default" ng-repeat="x in pesanan | orderBy:'-id'" ng-init="parentIndex = $index; total = x.totalHarga">
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-parent="#listPesanan" data-target="#panelPesanan-{{$index}}">
 							<div class="row">
-								<div class="col-lg-1">
+								<div class="col-sm-1">
 									{{$index+1}}
 								</div>
-								<div class="col-lg-4">
-									Pesanan-{{x.id}}
+								<div class="col-sm-3">
+									Pesanan {{x.id}}
 								</div>
-								<div class="col-lg-4">
-									Meja-{{x.meja[0].id}}
+								<div class="col-sm-3">
+									{{(x.meja[0].id) ? 'Meja #' + x.meja[0].id : (x.jenis | titleCase)}}
 								</div>
-								<div class="col-lg-3">
-									{{x.tanggalBuat | limitTo: 19}}
+								<div class="col-sm-2">
+									{{x.totalHarga | currency : 'Rp' : 0}}
+								</div>
+								<div class="col-sm-3">
+									{{x.tanggalBuat}}
 								</div>
 							</div>
 						</a>
 					</h4>
 				</div>
-				<div id="panelPesanan-{{$index}}" class="panel-collapse collapse">
+				<div id="panelPesanan-{{$index}}" class="panel-collapse collapse in">
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-lg-9">
-								<div class="table-responsive">
+							<div class="col-sm-9">
+								<div class="table-responsive table-striped" style="min-height: 149px; margin-bottom: 0">
 									<table class="table table-hover">
 										<thead>
 											<tr>
@@ -80,49 +93,37 @@
 												<td>{{$index + 1}}</td>
 												<td>{{y.nama}}</td>
 												<td>{{y.ItemPesanan.count}}</td>
-												<td>{{y.harga * y.ItemPesanan.count}}</td>
+												<td>{{y.harga * y.ItemPesanan.count | currency : 'Rp' : 0}}</td>
 											</tr> <!-- Iterasi Close -->
 										</tbody>
 									</table>
 								</div>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-sm-3">
 								<form class="form-horizontal">
 									<div class="form-group">
-										<label for="totalHarga" class="control-label col-lg-3">Total</label>
-										<p id="totalHarga" class="form-control-static col-lg-9">{{total}}</p>
+										<label for="totalHarga" class="control-label col-sm-3">Total</label>
+										<p id="totalHarga" class="form-control-static col-sm-9">{{total | currency : 'Rp' : 0}}</p>
 									</div>
 									<div class="form-group">
-										<label for="totalBayar" class="control-label col-lg-3">Jumlah Bayar</label>
-										<div class="col-lg-9">
+										<label for="totalBayar" class="control-label col-sm-3">Bayar</label>
+										<div class="col-sm-9">
 											<input id="totalBayar" type="number" class="form-control" ng-model="jumlahBayar" ng-init="jumlahBayar=0">
 										</div>
 									</div>
 									<div class="form-group">
-										<div class="col-lg-6 col-lg-offset-3 text-center">
-											<input type="button" class="btn btn-default" ng-disabled="jumlahBayar < total" ng-click="bayar()" value="Bayar">
+										<div class="col-sm-12 text-center">
+											<input type="button" class="btn btn-default btn-block" ng-disabled="jumlahBayar < total" ng-click="bayar()" value="Bayar">
 										</div>
 									</div>
-									<div class="form-group">
-										<label for="kembalian" class="control-label col-lg-3">Kembalian</label>
-										<p id="kembalian" class="form-control-static col-lg-9">{{jumlahBayar - total}}</p>
+									<div class="form-group" ng-show="jumlahBayar - total >= 0">
+										<label for="kembalian" class="control-label col-sm-3">Kembalian</label>
+										<p id="kembalian" class="form-control-static col-sm-9">{{jumlahBayar - total | currency : 'Rp' : 0}}</p>
 									</div>
 								</form>
 							</div>
 						</div>
 					</div>
-					<div class="panel-footer">
-						<div class="row">
-							<div class="col-lg-2">
-								<p>Total</p>
-							</div>
-							<div class="col-lg-2 col-lg-offset-7 text-right">
-								<p>180.000</p>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div> <!-- Iterasi Close -->
 		</div>
-	</div>
 </div>

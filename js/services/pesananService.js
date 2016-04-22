@@ -1,6 +1,6 @@
 app.factory('pesananService', function($http, $q) {
     var factory = {};
-    var pesananEndpoint = 'http://localhost:5555/api/v1/pesanan/';
+    var pesananEndpoint = 'http://167.205.34.83:5555/api/v1/pesanan/';
 
     var getPesananEndpoint = function(pesananId) {
         return pesananEndpoint + pesananId;

@@ -1,6 +1,6 @@
 app.factory('menuService', function($http, $q) {
     var factory = {};
-    var menuEndpoint = 'http://localhost:5555/api/v1/menu/';
+    var menuEndpoint = 'http://167.205.34.83:5555/api/v1/menu/';
 	
 	var getEndpoint = function(menuId){
 		return menuEndpoint + menuId;

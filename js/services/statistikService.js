@@ -1,6 +1,6 @@
 app.factory('statistikService', function($http, $q) {
     var factory = {};
-    var statistikEndpoint = 'http://localhost:5555/api/v1/statistik/';
+    var statistikEndpoint = 'http://167.205.34.83:5555/api/v1/statistik/';
 
     var getStatistikEndpoint = function(type){
 		return statistikEndpoint + type;

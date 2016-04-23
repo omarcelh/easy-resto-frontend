@@ -25,7 +25,7 @@
 				ng-options="option.value as option.name for option in statistikOptions.filter.availableOptions">
 			</select>
 		</div>
-		<div class="form-group col-sm-3">
+		<div class="form-group col-sm-3" ng-hide="statistikOptions.filter.selected === 'hari'">
 			<label for="tanggalAwal" class="control-label">Sejak</label>
 			<input id="tanggalAwal" type="date" class="btn btn-default"	required
 				ng-model="statistikOptions.startDate"

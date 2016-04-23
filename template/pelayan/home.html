@@ -64,7 +64,7 @@
 					</a>
 				</h4>
 			</div>
-			<div id="panelPesanan-{{$index}}" class="panel-collapse collapse">
+			<div id="panelPesanan-{{$index}}" class="panel-collapse collapse in">
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-sm-12">
@@ -80,7 +80,7 @@
 									</thead>
 									<!-- Iterasi item di pesanan -->
 									<tbody>
-										<tr ng-repeat="y in pesanan[parentIndex].items">
+										<tr ng-repeat="y in pesanan[parentIndex].items | orderBy:'id'">
 											<td>{{$index + 1}}</td>
 											<td>{{y.nama}}</td>
 											<td>{{y.ItemPesanan.count}}</td>

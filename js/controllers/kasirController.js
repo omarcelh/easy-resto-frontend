@@ -1,4 +1,4 @@
-app.controller('kasirController', function($scope, $state, pesananService, menuService, statistikService) {
+app.controller('kasirController', function($scope, $state, $interval, pesananService, menuService, statistikService) {
 	$scope.pesananSorter = {
 		selected: 'sudah_lengkap',
 		availableOptions: [
@@ -27,7 +27,8 @@ app.controller('kasirController', function($scope, $state, pesananService, menuS
 			$scope.pesanan = res;
 		});
 	};
-	getPesanan();
+	getPesanan($scope.pesananSorter.selected);
+	$interval(function() { getPesanan($scope.pesananSorter.selected)}, 8000);
 
 	$scope.sortPesananBy = function(status) {
 		getPesanan(status);

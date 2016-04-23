@@ -1,4 +1,4 @@
-app.controller('pelayanController', function($scope, pesananService, menuService, mejaService) {
+app.controller('pelayanController', function($scope, $interval, pesananService, menuService, mejaService) {
 	$scope.pesanan = [];
 	$scope.menu = [];
 	$scope.meja = [];
@@ -77,11 +77,12 @@ app.controller('pelayanController', function($scope, pesananService, menuService
 		});
 	};
 	getPesanan();
+	$interval(getPesanan, 8000);
 
 	$scope.addPesanan = function(pesanan) {
 		pesananService.addPesanan(pesanan).then(function(res) {
 			getPesanan();
-			isShown = false;
+			$scope.isShown = false;
 
 			$scope.singlePesanan = {
 				jenis: 'makan_di_tempat',
@@ -89,13 +90,16 @@ app.controller('pelayanController', function($scope, pesananService, menuService
 				mejaId: 1,
 				items: []
 			};
+			$scope.menu.map(function(menu) {
+				$scope.singlePesanan.items.push({id: menu.id, count: 0});
+			});
 		});
 	}
 
 	$scope.editPesanan = function(pesananToEdit){
 		pesananService.editPesanan(pesananToEdit.id, pesananToEdit).then(function(res){
 			getPesanan();
-			isEditShown = false;
+			$scope.isEditShown = false;
 
 			$scope.pesananToEdit = {
 				id: null,
@@ -107,6 +111,7 @@ app.controller('pelayanController', function($scope, pesananService, menuService
 			$scope.menu.map(function(menu) {
 				$scope.singlePesanan.items.push({id: menu.id, count: 0});
 			});
+
 		});
 	}
 

@@ -49,6 +49,9 @@
 		</div>
 	</div>
 			<!-- Iterasi per pesanan -->
+			<div class="well text-center" ng-hide="pesanan.length > 0">
+				<strong>Tidak ada pesanan.</strong>
+			</div>
 			<div class="panel panel-default" ng-repeat="x in pesanan | orderBy:'-id'" ng-init="parentIndex = $index; total = x.totalHarga">
 				<div class="panel-heading">
 					<h4 class="panel-title">
@@ -105,15 +108,15 @@
 										<label for="totalHarga" class="control-label col-sm-3">Total</label>
 										<p id="totalHarga" class="form-control-static col-sm-9">{{total | currency : 'Rp' : 0}}</p>
 									</div>
-									<div class="form-group">
+									<div class="form-group" ng-show="pesananSorter.selected !== 'lunas'">
 										<label for="totalBayar" class="control-label col-sm-3">Bayar</label>
 										<div class="col-sm-9">
 											<input id="totalBayar" type="number" class="form-control" ng-model="jumlahBayar" ng-init="jumlahBayar=0">
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group" ng-show="pesananSorter.selected !== 'lunas'">
 										<div class="col-sm-12 text-center">
-											<input type="button" class="btn btn-default btn-block" ng-disabled="jumlahBayar < total" ng-click="bayar()" value="Bayar">
+											<input type="button" class="btn btn-default btn-block" ng-disabled="jumlahBayar < total" ng-click="bayar(pesanan.id)" value="Bayar">
 										</div>
 									</div>
 									<div class="form-group" ng-show="jumlahBayar - total >= 0">

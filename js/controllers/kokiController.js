@@ -19,7 +19,7 @@ app.controller('kokiController', function($scope, $interval, pesananService) {
 	};
 
 	getPesanan();
-	$interval(getPesanan, 5000);
+	$interval(getPesanan, 8000);
 
 	$scope.updateStatusPesanan = function(pesanan, stat){
 		pesananService.updateStatusPesanan(pesanan.id, stat).then(function(res){
